@@ -16,7 +16,7 @@ jobs:
           npm i
       - name: install backend dependencies
         run: |
-          cd server
+          cd backend
           npm i
       - name: check eslint
         run: |
