@@ -1,37 +1,36 @@
-name : test + eslint + build
+name: test + eslint + build
 
 on:
   pull_request:
     branches:
       - develop
 jobs:
-  full-check:
-    name: full-check
+  check:
+    name: check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name : intstall frontend dependencies
+      - name: intstall frontend dependencies
         run: |
           cd frontend
           npm i
-      - name : install backend dependencies
+      - name: install backend dependencies
         run: |
           cd server
           npm i
       - name: check eslint
-        run : |
+        run: |
           .\frontend\node_modules\.bin\eslint src
           .\backend\node_modules\.bin\eslint src
       - name: check test
-        run : |
+        run: |
           cd frontend
           npm run test
           cd ../backend
           npm run test
       - name: check build
-        run : |
+        run: |
           cd frontend
           npm run build
           cd ../backend
           npm run build
-    
