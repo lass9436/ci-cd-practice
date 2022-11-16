@@ -20,8 +20,8 @@ jobs:
           npm i
       - name: check eslint
         run: |
-          .\frontend\node_modules\.bin\eslint .\frontend\src
-          .\backend\node_modules\.bin\eslint .\backend\src
+          ./frontend/node_modules/.bin/eslint ./frontend/src
+          ./backend/node_modules/.bin/eslint ./backend/src
       - name: check test
         run: |
           cd frontend
