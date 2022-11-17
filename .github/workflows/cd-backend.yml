@@ -29,7 +29,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           source: "backend/dist/*"
-          target: "/ci-cd-practice"
+          target: "/root/ci-cd-practice"
 
       - name: reload
         uses: appleboy/ssh-action@master
