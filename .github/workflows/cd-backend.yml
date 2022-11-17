@@ -1,0 +1,23 @@
+name: cd-backend
+
+on:
+  push:
+    branches: ["develop"]
+
+jobs:
+  CD:
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy to prod
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{secrets.IP}}
+          username: ${{secrets.ID}}
+          password: ${{secrets.PASSWORD}}
+          port: ${{secrets.PORT}}
+          script: |
+            cd ci-cd-practice
+            git pull
+            cd backend
+            npm run build
+            pm2 reload main
