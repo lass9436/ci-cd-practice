@@ -6,9 +6,32 @@ on:
 
 jobs:
   CD:
+    name: deploy-backend
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
     steps:
-      - name: deploy to prod
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: install dependencies
+        run: npm i
+
+      - name: build
+        run: npm run build
+
+      - name: deploy build outputs
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.IP }}
+          username: ${{ secrets.ID }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          source: "backend/dist/*"
+          target: "/ci-cd-practice"
+
+      - name: reload
         uses: appleboy/ssh-action@master
         with:
           host: ${{secrets.IP}}
@@ -16,8 +39,4 @@ jobs:
           password: ${{secrets.PASSWORD}}
           port: ${{secrets.PORT}}
           script: |
-            cd ci-cd-practice
-            git pull
-            cd backend
-            npm run build
             pm2 reload main
